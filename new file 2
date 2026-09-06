@@ -6,7 +6,7 @@ style.css
   }
 
 body {
-background: #080808;
+background: radial-gradient(circle at top, #151515, #000);
 color: white;
 font-family: Arial, sans-serif;
 text-align: center;
@@ -16,7 +16,8 @@ overflow: hidden;
 h1 {
 margin: 15px;
 color: #00ffff;
-text-shadow: 0 0 10px #00ffff;
+text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff;
+letter-spacing: 3px;
 }
 
 #game {
@@ -24,31 +25,94 @@ position: relative;
 width: 400px;
 height: 600px;
 margin: auto;
+box-shadow: 0 0 30px #00ffff;
 }
 
 #road {
 position: relative;
 width: 100%;
 height: 100%;
-background: #333;
+overflow: hidden;
+
+```
+background:
+    repeating-linear-gradient(
+        90deg,
+        #333 0px,
+        #333 125px,
+        #ffffff 125px,
+        #ffffff 135px,
+        #333 135px,
+        #333 265px,
+        #ffffff 265px,
+        #ffffff 275px,
+        #333 275px,
+        #333 400px
+    );
+
 border-left: 8px solid #00ffff;
 border-right: 8px solid #00ffff;
-overflow: hidden;
+```
+
 }
 
 /* Player car */
-.player {
+.player,
+.enemy {
 position: absolute;
 width: 60px;
 height: 100px;
-background: #ff004c;
+border-radius: 15px;
+}
+
+/* Player */
+.player {
 bottom: 30px;
 left: 170px;
-border-radius: 12px;
+background: linear-gradient(90deg, #ff004c, #ff5c8a, #ff004c);
 box-shadow: 0 0 20px #ff004c;
 }
 
-/* Score */
+/* Enemy */
+.enemy {
+background: linear-gradient(90deg, #ffcc00, #fff176, #ffcc00);
+box-shadow: 0 0 20px #ffcc00;
+}
+
+/* Car windows */
+.player::before,
+.enemy::before {
+content: "";
+position: absolute;
+width: 38px;
+height: 35px;
+background: #111;
+left: 11px;
+top: 15px;
+border-radius: 8px;
+}
+
+/* Wheels */
+.player::after,
+.enemy::after {
+content: "";
+position: absolute;
+width: 70px;
+height: 15px;
+background:
+linear-gradient(
+90deg,
+#111 0%,
+#111 20%,
+transparent 20%,
+transparent 80%,
+#111 80%,
+#111 100%
+);
+left: -5px;
+top: 70px;
+}
+
 #score {
 position: absolute;
 top: 10px;
@@ -56,9 +120,10 @@ left: 10px;
 z-index: 10;
 font-size: 22px;
 font-weight: bold;
+color: white;
+text-shadow: 0 0 10px #00ffff;
 }
 
-/* Game over screen */
 #gameOver {
 display: none;
 position: absolute;
@@ -66,9 +131,23 @@ z-index: 20;
 width: 100%;
 top: 200px;
 text-align: center;
+
+```
+background: rgba(0, 0, 0, 0.85);
+padding: 25px;
+border: 2px solid #ff004c;
+box-shadow: 0 0 30px #ff004c;
+```
+
+}
+
+#gameOver h2 {
+color: #ff004c;
+font-size: 35px;
 }
 
 button {
+margin-top: 15px;
 padding: 12px 25px;
 border: none;
 border-radius: 8px;
@@ -78,10 +157,12 @@ font-size: 18px;
 font-weight: bold;
 cursor: pointer;
 }
-/* Enemy car */
-.enemy {
-    position: absolute;
-    width: 60px;
+
+button:hover {
+transform: scale(1.1);
+box-shadow: 0 0 20px #00ffff;
+}
+
     height: 100px;
     background: #ffcc00;
     border-radius: 12px;
