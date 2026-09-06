@@ -164,28 +164,33 @@ gameLoop();
 
 // Start the game
 gameLoop();
-document.getElementById("leftBtn").addEventListener("click", function () {
-if (!gameRunning) return;
+let moveInterval;
 
-```
-playerX -= 25;
-
-if (playerX < 10) playerX = 10;
-
-player.style.left = playerX + "px";
-```
-
+// LEFT BUTTON
+document.getElementById("leftBtn").addEventListener("touchstart", function () {
+    moveInterval = setInterval(function () {
+        if (playerX > 10) {
+            playerX -= 10;
+            player.style.left = playerX + "px";
+        }
+    }, 30);
 });
 
-document.getElementById("rightBtn").addEventListener("click", function () {
-if (!gameRunning) return;
+document.getElementById("leftBtn").addEventListener("touchend", function () {
+    clearInterval(moveInterval);
+});
 
-```
-playerX += 25;
 
-if (playerX > 330) playerX = 330;
+// RIGHT BUTTON
+document.getElementById("rightBtn").addEventListener("touchstart", function () {
+    moveInterval = setInterval(function () {
+        if (playerX < 330) {
+            playerX += 10;
+            player.style.left = playerX + "px";
+        }
+    }, 30);
+});
 
-player.style.left = playerX + "px";
-```
-
+document.getElementById("rightBtn").addEventListener("touchend", function () {
+    clearInterval(moveInterval);
 });
