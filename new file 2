@@ -20,12 +20,49 @@ text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff;
 letter-spacing: 3px;
 }
 
-#game {
+#road {
 position: relative;
-width: 400px;
-height: 600px;
-margin: auto;
-box-shadow: 0 0 30px #00ffff;
+width: 100%;
+height: 100%;
+overflow: hidden;
+
+```
+background:
+    repeating-linear-gradient(
+        90deg,
+        #333 0px,
+        #333 125px,
+        #ffffff 125px,
+        #ffffff 135px,
+        #333 135px,
+        #333 265px,
+        #ffffff 265px,
+        #ffffff 275px,
+        #333 275px,
+        #333 400px
+    );
+
+background-size: 400px 600px;
+
+border-left: 8px solid #00ffff;
+border-right: 8px solid #00ffff;
+
+animation: roadMove 0.5s linear infinite;
+```
+
+}
+
+@keyframes roadMove {
+from {
+background-position: 0 0;
+}
+
+```
+to {
+    background-position: 0 100px;
+}
+```
+
 }
 
 #road {
