@@ -164,3 +164,28 @@ gameLoop();
 
 // Start the game
 gameLoop();
+document.getElementById("leftBtn").addEventListener("click", function () {
+if (!gameRunning) return;
+
+```
+playerX -= 25;
+
+if (playerX < 10) playerX = 10;
+
+player.style.left = playerX + "px";
+```
+
+});
+
+document.getElementById("rightBtn").addEventListener("click", function () {
+if (!gameRunning) return;
+
+```
+playerX += 25;
+
+if (playerX > 330) playerX = 330;
+
+player.style.left = playerX + "px";
+```
+
+});
