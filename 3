@@ -1,1 +1,166 @@
 script.js
+const road = document.getElementById("road");
+const player = document.querySelector(".player");
+const scoreDisplay = document.getElementById("score");
+const gameOverScreen = document.getElementById("gameOver");
+const finalScore = document.getElementById("finalScore");
+
+let playerX = 170;
+let score = 0;
+let gameRunning = true;
+let enemySpeed = 5;
+
+let enemies = [];
+
+// Move the player's car
+document.addEventListener("keydown", function (event) {
+if (!gameRunning) return;
+
+```
+if (event.key === "ArrowLeft") {
+    playerX -= 25;
+}
+
+if (event.key === "ArrowRight") {
+    playerX += 25;
+}
+
+// Keep the car inside the road
+if (playerX < 10) playerX = 10;
+if (playerX > 330) playerX = 330;
+
+player.style.left = playerX + "px";
+```
+
+});
+
+// Create an enemy car
+function createEnemy() {
+const enemy = document.createElement("div");
+
+```
+enemy.classList.add("enemy");
+
+const enemyX = Math.floor(Math.random() * 330) + 10;
+
+enemy.style.left = enemyX + "px";
+enemy.style.top = "-120px";
+
+road.appendChild(enemy);
+
+enemies.push(enemy);
+```
+
+}
+
+// Check collision
+function checkCollision(a, b) {
+const aRect = a.getBoundingClientRect();
+const bRect = b.getBoundingClientRect();
+
+```
+return (
+    aRect.left < bRect.right &&
+    aRect.right > bRect.left &&
+    aRect.top < bRect.bottom &&
+    aRect.bottom > bRect.top
+);
+```
+
+}
+
+// Main game loop
+function gameLoop() {
+
+```
+if (!gameRunning) return;
+
+// Move enemy cars
+enemies.forEach(function (enemy, index) {
+
+    let top = parseInt(enemy.style.top);
+
+    top += enemySpeed;
+
+    enemy.style.top = top + "px";
+
+
+    // Collision
+    if (checkCollision(player, enemy)) {
+        gameRunning = false;
+
+        finalScore.innerText = "Your Score: " + score;
+
+        gameOverScreen.style.display = "block";
+
+        return;
+    }
+
+
+    // Remove enemy when it leaves the road
+    if (top > 600) {
+
+        enemy.remove();
+
+        enemies.splice(index, 1);
+
+        score++;
+
+        scoreDisplay.innerText = "Score: " + score;
+
+        // Slowly increase difficulty
+        if (score % 5 === 0) {
+            enemySpeed += 0.5;
+        }
+    }
+
+});
+
+
+requestAnimationFrame(gameLoop);
+```
+
+}
+
+// Create enemies regularly
+setInterval(function () {
+
+```
+if (gameRunning) {
+    createEnemy();
+}
+```
+
+}, 1200);
+
+// Restart game
+function restartGame() {
+
+```
+enemies.forEach(function (enemy) {
+    enemy.remove();
+});
+
+enemies = [];
+
+playerX = 170;
+
+player.style.left = playerX + "px";
+
+score = 0;
+
+enemySpeed = 5;
+
+scoreDisplay.innerText = "Score: 0";
+
+gameOverScreen.style.display = "none";
+
+gameRunning = true;
+
+gameLoop();
+```
+
+}
+
+// Start the game
+gameLoop();
