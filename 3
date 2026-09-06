@@ -7,6 +7,7 @@ const finalScore = document.getElementById("finalScore");
 
 let playerX = 170;
 let score = 0;
+let highScore = localStorage.getItem("highScore") || 0;
 let gameRunning = true;
 let enemySpeed = 5;
 
@@ -151,9 +152,12 @@ score = 0;
 
 enemySpeed = 5;
 
-scoreDisplay.innerText = "Score: 0";
-
+scoreDisplay.innerText = "Score: " + score + " | High Score: " + highScore;
 gameOverScreen.style.display = "none";
+if (score > highScore) {
+    highScore = score;
+    localStorage.setItem("highScore", highScore);
+}
 
 gameRunning = true;
 
