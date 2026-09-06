@@ -219,3 +219,20 @@ height: 60px;
 font-size: 30px;
 border-radius: 15px;
 }
+@media (max-width: 500px) {
+    h1 {
+        font-size: 22px;
+        margin: 10px;
+    }
+
+    #game {
+        width: 95vw;
+        height: 70vh;
+    }
+
+    #controls button {
+        width: 90px;
+        height: 65px;
+        font-size: 32px;
+    }
+}
